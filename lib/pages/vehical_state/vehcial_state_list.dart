@@ -1,6 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vehical_app/blocs/transport_bloc/transport_bloc.dart';
+import 'package:vehical_app/blocs/transport_on_change_state_bloc/transport_on_change_bloc.dart';
 import 'package:vehical_app/design/demensions.dart';
 import 'package:vehical_app/design/utils/size_utils.dart';
 import 'package:vehical_app/design/widgets/accent_button.dart';
@@ -8,7 +10,12 @@ import 'package:vehical_app/design/widgets/selectable_item.dart';
 import 'package:vehical_app/models/states_model.dart';
 
 class VehicalStateList extends StatelessWidget {
-  const VehicalStateList({super.key});
+  const VehicalStateList({
+    super.key,
+    required this.driver,
+  });
+
+  final String driver;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +32,7 @@ class VehicalStateList extends StatelessWidget {
 
   Widget _list(BuildContext context) {
     final stateList = StateModel.stateList;
-    return BlocBuilder<TransportBloc, TransportState>(
+    return BlocBuilder<TransportOnChangeBloc, TransportOnChangeState>(
       builder: (context, state) {
         return ListView.separated(
           itemCount: stateList.length,
@@ -42,8 +49,8 @@ class VehicalStateList extends StatelessWidget {
           },
           itemBuilder: (context, index) {
             final status = stateList[index];
-            int selectedStateIndex = -1;
-            if (state is TransportSelectedState) {
+            int? selectedStateIndex;
+            if (state is TransportChangedState) {
               selectedStateIndex = state.selectedIndex;
             }
             final bool isSelected = selectedStateIndex == index;
@@ -53,7 +60,9 @@ class VehicalStateList extends StatelessWidget {
               title: status.action,
               isSelected: isSelected,
               onTap: () {
-                context.read<TransportBloc>().add(OnChangedStateEvent(index));
+                context
+                    .read<TransportOnChangeBloc>()
+                    .add(OnChangeStateEvent(index, status.action, driver));
               },
             );
           },
@@ -70,9 +79,21 @@ class VehicalStateList extends StatelessWidget {
           left: padding16,
           right: padding16,
         ),
-        child: AccentButton(
-          title: 'Сохранить',
-          onTap: () {},
+        child: BlocBuilder<TransportOnChangeBloc, TransportOnChangeState>(
+          builder: (context, state) {
+            if (state is TransportChangedState) {
+              return AccentButton(
+                title: 'Сохранить',
+                onTap: () {
+                  context
+                      .read<TransportOnChangeBloc>()
+                      .add(OnSaveButtonEvent(state.action, state.driver));
+                },
+              );
+            } else {
+              return Container();
+            }
+          },
         ),
       ),
     );

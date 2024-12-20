@@ -50,7 +50,7 @@ class VehicalList extends StatelessWidget {
                 await _showDriverPage(context);
               },
               onStateTap: () async {
-                await _showVehicalStatePage(context);
+                await _showVehicalStatePage(context, transport.driver);
               },
               model: transport.model,
               driver: transport.driver,
@@ -98,9 +98,12 @@ class VehicalList extends StatelessWidget {
     }));
   }
 
-  Future<void> _showVehicalStatePage(BuildContext context) async {
+  Future<void> _showVehicalStatePage(
+      BuildContext context, String driver) async {
     await Navigator.push(context, CupertinoPageRoute(builder: (context) {
-      return const VehicalStatePage();
+      return VehicalStatePage(
+        driver: driver,
+      );
     }));
   }
 }

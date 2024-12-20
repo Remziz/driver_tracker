@@ -4,7 +4,12 @@ import 'package:vehical_app/design/styles.dart';
 import 'package:vehical_app/pages/vehical_state/vehcial_state_list.dart';
 
 class VehicalStatePage extends StatelessWidget {
-  const VehicalStatePage({super.key});
+  const VehicalStatePage({
+    super.key,
+    required this.driver,
+  });
+
+  final String driver;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +30,9 @@ class VehicalStatePage extends StatelessWidget {
       ),
       body: Container(
         color: backgroundColor,
-        child: const VehicalStateList(),
+        child: VehicalStateList(
+          driver: driver,
+        ),
       ),
     );
   }

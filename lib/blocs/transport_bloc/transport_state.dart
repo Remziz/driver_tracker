@@ -21,14 +21,3 @@ final class TransportLoaded extends TransportState {
 }
 
 final class TransportLoadingFailure extends TransportState {}
-
-final class TransportSelectedState extends TransportState {
-  final int selectedIndex;
-
-  const TransportSelectedState(
-    this.selectedIndex,
-  );
-
-  @override
-  List<Object> get props => [selectedIndex];
-}

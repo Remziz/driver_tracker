@@ -23,9 +23,5 @@ class TransportBloc extends Bloc<TransportEvent, TransportState> {
         emit(TransportLoadingFailure());
       }
     });
-    on<OnChangedStateEvent>((event, emit) {
-      final index = event.selectedIndex;
-      emit(TransportSelectedState(index));
-    });
   }
 }

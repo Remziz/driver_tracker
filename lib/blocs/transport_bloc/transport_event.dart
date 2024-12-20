@@ -15,12 +15,3 @@ final class LoadTransportData extends TransportEvent {
   @override
   List<Object> get props => [userId];
 }
-
-final class OnChangedStateEvent extends TransportEvent {
-  final int selectedIndex;
-
-  const OnChangedStateEvent(this.selectedIndex);
-
-  @override
-  List<Object> get props => [selectedIndex];
-}
