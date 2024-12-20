@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:vehical_app/app.dart';
-import 'package:vehical_app/bloc/auth_bloc.dart';
+import 'package:vehical_app/blocs/auth_bloc/auth_bloc.dart';
+import 'package:vehical_app/blocs/transport_bloc/transport_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,6 +23,9 @@ void main() async {
             ..add(
               OnStartEvent(),
             ),
+        ),
+        BlocProvider(
+          create: (context) => TransportBloc(supabase),
         )
       ],
       child: MainApp(),

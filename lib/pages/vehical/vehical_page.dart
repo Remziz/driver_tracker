@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vehical_app/bloc/auth_bloc.dart';
+import 'package:vehical_app/blocs/auth_bloc/auth_bloc.dart';
 import 'package:vehical_app/design/colors.dart';
 import 'package:vehical_app/design/styles.dart';
 import 'package:vehical_app/pages/vehical/vehical_list.dart';
