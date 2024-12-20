@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vehical_app/blocs/transport_bloc/transport_bloc.dart';
 import 'package:vehical_app/design/colors.dart';
 import 'package:vehical_app/design/demensions.dart';
 import 'package:vehical_app/design/images.dart';
@@ -9,44 +11,57 @@ class VehicalItem extends StatelessWidget {
     super.key,
     required this.onTap,
     required this.onStateTap,
+    required this.model,
+    required this.driver,
+    required this.status,
   });
 
   final Function() onTap;
   final Function() onStateTap;
+  final String model;
+  final String driver;
+  final String status;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: height64,
-      child: Card(
-        color: surfaceColor,
-        elevation: elevation006,
-        margin: EdgeInsets.zero,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(radius8),
-        ),
-        child: InkWell(
-          borderRadius: BorderRadius.circular(radius8),
-          onTap: onTap,
-          child: Padding(
-            padding: const EdgeInsets.only(
-              left: padding8,
-              right: padding16,
+    return BlocBuilder<TransportBloc, TransportState>(
+        builder: (context, state) {
+      if (state is TransportLoaded) {
+        return SizedBox(
+          height: height64,
+          child: Card(
+            color: surfaceColor,
+            elevation: elevation006,
+            margin: EdgeInsets.zero,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(radius8),
             ),
-            child: Row(
-              children: <Widget>[
-                vehicalMotorcycleImage,
-                _title(),
-                _state(),
-              ],
+            child: InkWell(
+              borderRadius: BorderRadius.circular(radius8),
+              onTap: onTap,
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  left: padding8,
+                  right: padding16,
+                ),
+                child: Row(
+                  children: <Widget>[
+                    vehicalMotorcycleImage,
+                    _title(model, driver),
+                    _state(status),
+                  ],
+                ),
+              ),
             ),
           ),
-        ),
-      ),
-    );
+        );
+      } else {
+        return Container();
+      }
+    });
   }
 
-  Widget _title() {
+  Widget _title(String model, String driver) {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.only(
@@ -56,8 +71,8 @@ class VehicalItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'BMW GS-7638',
+            Text(
+              model,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: bodyListItemStyle,
@@ -69,13 +84,13 @@ class VehicalItem extends StatelessWidget {
             RichText(
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              text: const TextSpan(children: <TextSpan>[
-                TextSpan(
+              text: TextSpan(children: <TextSpan>[
+                const TextSpan(
                   text: 'Driver: ',
                   style: hintBodyListItemStyle,
                 ),
                 TextSpan(
-                  text: 'Paul',
+                  text: driver,
                   style: bodyListItemStyle,
                 )
               ]),
@@ -86,15 +101,15 @@ class VehicalItem extends StatelessWidget {
     );
   }
 
-  Widget _state() {
+  Widget _state(String status) {
     return InkWell(
       onTap: onStateTap,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           vehicalPickUpImage,
-          const Text(
-            'pickup',
+          Text(
+            status,
             style: smallBodyListItemStyle,
           )
         ],

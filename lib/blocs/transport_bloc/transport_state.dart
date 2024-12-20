@@ -17,7 +17,18 @@ final class TransportLoaded extends TransportState {
   const TransportLoaded(this.transportData);
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [transportData];
 }
 
 final class TransportLoadingFailure extends TransportState {}
+
+final class TransportSelectedState extends TransportState {
+  final int selectedIndex;
+
+  const TransportSelectedState(
+    this.selectedIndex,
+  );
+
+  @override
+  List<Object> get props => [selectedIndex];
+}

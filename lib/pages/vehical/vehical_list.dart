@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vehical_app/blocs/transport_bloc/transport_bloc.dart';
 import 'package:vehical_app/design/demensions.dart';
 import 'package:vehical_app/design/dialog/error_dialog.dart';
 import 'package:vehical_app/design/utils/size_utils.dart';
@@ -25,30 +27,41 @@ class VehicalList extends StatelessWidget {
   }
 
   Widget _list(BuildContext context) {
-    return ListView.separated(
-      itemCount: 15,
-      padding: EdgeInsets.only(
-        left: padding16,
-        right: padding16,
-        top: padding16,
-        bottom: getListBottomPadding(context),
-      ),
-      separatorBuilder: (context, index) {
-        return const SizedBox(
-          height: height8,
-        );
-      },
-      itemBuilder: (context, index) {
-        return VehicalItem(
-          onTap: () async {
-            await _showDriverPage(context);
+    return BlocBuilder<TransportBloc, TransportState>(
+        builder: (context, state) {
+      if (state is TransportLoaded) {
+        return ListView.separated(
+          itemCount: state.transportData.length,
+          padding: EdgeInsets.only(
+            left: padding16,
+            right: padding16,
+            top: padding16,
+            bottom: getListBottomPadding(context),
+          ),
+          separatorBuilder: (context, index) {
+            return const SizedBox(
+              height: height8,
+            );
           },
-          onStateTap: () async {
-            await _showVehicalStatePage(context);
+          itemBuilder: (context, index) {
+            final transport = state.transportData[index];
+            return VehicalItem(
+              onTap: () async {
+                await _showDriverPage(context);
+              },
+              onStateTap: () async {
+                await _showVehicalStatePage(context);
+              },
+              model: transport.model,
+              driver: transport.driver,
+              status: transport.status,
+            );
           },
         );
-      },
-    );
+      } else {
+        return Container();
+      }
+    });
   }
 
   Widget _updateButton(BuildContext context) {
