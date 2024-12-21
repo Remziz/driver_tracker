@@ -32,3 +32,18 @@ final class OnChangedState extends TransportOnChangeState {
   @override
   List<Object> get props => [action];
 }
+
+final class ChangingState extends TransportOnChangeState {
+  @override
+  List<Object> get props => [];
+}
+
+final class ChangedStateSuccessuful extends TransportOnChangeState {
+  @override
+  List<Object> get props => [];
+}
+
+final class ChangedStateFailure extends TransportOnChangeState {
+  @override
+  List<Object> get props => [];
+}

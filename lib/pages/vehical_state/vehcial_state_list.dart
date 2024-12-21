@@ -1,7 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vehical_app/blocs/auth_bloc/auth_bloc.dart';
+import 'package:vehical_app/blocs/transport_bloc/transport_bloc.dart';
 import 'package:vehical_app/blocs/transport_on_change_state_bloc/transport_on_change_bloc.dart';
 import 'package:vehical_app/design/demensions.dart';
 import 'package:vehical_app/design/utils/size_utils.dart';
@@ -19,14 +19,23 @@ class VehicalStateList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        _list(context),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: _saveButton(),
-        ),
-      ],
+    return BlocListener<TransportOnChangeBloc, TransportOnChangeState>(
+      listener: (context, state) async {
+        if (state is ChangedStateSuccessuful) {
+          final userId = context.read<AuthBloc>().supabase.auth.currentUser!.id;
+          context.read<TransportBloc>().add(LoadTransportData(userId));
+          Navigator.of(context).pop();
+        }
+      },
+      child: Stack(
+        children: <Widget>[
+          _list(context),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: _saveButton(),
+          ),
+        ],
+      ),
     );
   }
 
@@ -90,6 +99,8 @@ class VehicalStateList extends StatelessWidget {
                       .add(OnSaveButtonEvent(state.action, state.driver));
                 },
               );
+            } else if (state is ChangingState) {
+              return CircularProgressIndicator.adaptive();
             } else {
               return Container();
             }

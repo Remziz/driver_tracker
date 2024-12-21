@@ -16,8 +16,9 @@ class TransportBloc extends Bloc<TransportEvent, TransportState> {
             .from('vehicels')
             .select()
             .eq('user_id', event.userId);
-        final transportData =
+        List<TransportModel> transportData =
             (response as List).map((e) => TransportModel.fromMap(e)).toList();
+        transportData.sort((a, b) => a.id.compareTo(b.id));
         emit(TransportLoaded(transportData));
       } catch (e) {
         emit(TransportLoadingFailure());

@@ -6,6 +6,7 @@ import 'package:vehical_app/design/demensions.dart';
 import 'package:vehical_app/design/dialog/error_dialog.dart';
 import 'package:vehical_app/design/utils/size_utils.dart';
 import 'package:vehical_app/design/widgets/accent_button.dart';
+import 'package:vehical_app/models/states_model.dart';
 import 'package:vehical_app/pages/driver/driver_page.dart';
 import 'package:vehical_app/pages/vehical/vehical_item.dart';
 import 'package:vehical_app/pages/vehical_state/vehical_state_page.dart';
@@ -30,8 +31,9 @@ class VehicalList extends StatelessWidget {
     return BlocBuilder<TransportBloc, TransportState>(
         builder: (context, state) {
       if (state is TransportLoaded) {
+        final transportData = state.transportData;
         return ListView.separated(
-          itemCount: state.transportData.length,
+          itemCount: transportData.length,
           padding: EdgeInsets.only(
             left: padding16,
             right: padding16,
@@ -44,7 +46,8 @@ class VehicalList extends StatelessWidget {
             );
           },
           itemBuilder: (context, index) {
-            final transport = state.transportData[index];
+            final transport = transportData[index];
+            final imageState = StateModel.getImageState(transport.status);
             return VehicalItem(
               onTap: () async {
                 await _showDriverPage(context);
@@ -55,6 +58,7 @@ class VehicalList extends StatelessWidget {
               model: transport.model,
               driver: transport.driver,
               status: transport.status,
+              imageState: imageState,
             );
           },
         );

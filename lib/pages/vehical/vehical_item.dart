@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:vehical_app/blocs/transport_bloc/transport_bloc.dart';
 import 'package:vehical_app/design/colors.dart';
 import 'package:vehical_app/design/demensions.dart';
@@ -14,6 +15,7 @@ class VehicalItem extends StatelessWidget {
     required this.model,
     required this.driver,
     required this.status,
+    required this.imageState,
   });
 
   final Function() onTap;
@@ -21,6 +23,7 @@ class VehicalItem extends StatelessWidget {
   final String model;
   final String driver;
   final String status;
+  final SvgPicture imageState;
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +110,7 @@ class VehicalItem extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          vehicalPickUpImage,
+          imageState,
           Text(
             status,
             style: smallBodyListItemStyle,

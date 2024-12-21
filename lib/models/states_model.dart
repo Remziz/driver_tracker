@@ -31,4 +31,8 @@ class StateModel {
       imagePath: SvgPicture.asset('assets/svg/delivery.svg'),
     ),
   ];
+
+  static SvgPicture getImageState(String action) {
+    return stateList.firstWhere((state) => state.action == action).imagePath;
+  }
 }
