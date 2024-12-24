@@ -32,6 +32,16 @@ class VehicalPage extends StatelessWidget {
               Icons.logout,
             ),
           ),
+          actions: [
+            IconButton(
+              onPressed: () {
+                final userId =
+                    context.read<AuthBloc>().supabase.auth.currentUser!.id;
+                context.read<TransportBloc>().add(LoadTransportData(userId));
+              },
+              icon: Icon(Icons.refresh),
+            )
+          ],
           title: const Text(
             'Диспетчер транспорта',
             style: primaryTextStyle,

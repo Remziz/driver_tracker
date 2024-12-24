@@ -4,7 +4,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:vehical_app/blocs/transport_bloc/transport_bloc.dart';
 import 'package:vehical_app/design/colors.dart';
 import 'package:vehical_app/design/demensions.dart';
-import 'package:vehical_app/design/images.dart';
 import 'package:vehical_app/design/styles.dart';
 
 class VehicalItem extends StatelessWidget {
@@ -16,6 +15,7 @@ class VehicalItem extends StatelessWidget {
     required this.driver,
     required this.status,
     required this.imageState,
+    required this.imageTransport,
   });
 
   final Function() onTap;
@@ -24,6 +24,7 @@ class VehicalItem extends StatelessWidget {
   final String driver;
   final String status;
   final SvgPicture imageState;
+  final SvgPicture imageTransport;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +50,7 @@ class VehicalItem extends StatelessWidget {
                 ),
                 child: Row(
                   children: <Widget>[
-                    vehicalMotorcycleImage,
+                    imageTransport,
                     _title(model, driver),
                     _state(status),
                   ],
@@ -80,10 +81,6 @@ class VehicalItem extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               style: bodyListItemStyle,
             ),
-            // Text(
-            //   'No driver',
-            //   style: hintBodyListItemStyle,
-            // ),
             RichText(
               maxLines: 1,
               overflow: TextOverflow.ellipsis,

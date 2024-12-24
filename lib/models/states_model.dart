@@ -1,4 +1,5 @@
 import 'package:flutter_svg/svg.dart';
+import 'package:vehical_app/design/images.dart';
 
 class StateModel {
   final String action;
@@ -33,6 +34,10 @@ class StateModel {
   ];
 
   static SvgPicture getImageState(String action) {
-    return stateList.firstWhere((state) => state.action == action).imagePath;
+    try {
+      return stateList.firstWhere((state) => state.action == action).imagePath;
+    } catch (e) {
+      return accountUnknownImage;
+    }
   }
 }

@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vehical_app/blocs/transport_bloc/transport_bloc.dart';
+import 'package:vehical_app/design/colors.dart';
 import 'package:vehical_app/design/demensions.dart';
-import 'package:vehical_app/design/dialog/error_dialog.dart';
 import 'package:vehical_app/design/utils/size_utils.dart';
-import 'package:vehical_app/design/widgets/accent_button.dart';
 import 'package:vehical_app/models/states_model.dart';
+import 'package:vehical_app/models/transport_image_model.dart';
 import 'package:vehical_app/pages/driver/driver_page.dart';
 import 'package:vehical_app/pages/vehical/vehical_item.dart';
 import 'package:vehical_app/pages/vehical_state/vehical_state_page.dart';
@@ -47,6 +47,8 @@ class VehicalList extends StatelessWidget {
           },
           itemBuilder: (context, index) {
             final transport = transportData[index];
+            final imageTransport =
+                TransportImageModel.getImageTransport(transport.model);
             final imageState = StateModel.getImageState(transport.status);
             return VehicalItem(
               onTap: () async {
@@ -59,6 +61,7 @@ class VehicalList extends StatelessWidget {
               driver: transport.driver,
               status: transport.status,
               imageState: imageState,
+              imageTransport: imageTransport,
             );
           },
         );
@@ -76,23 +79,19 @@ class VehicalList extends StatelessWidget {
           left: padding16,
           right: padding16,
         ),
-        child: AccentButton(
-          title: 'Обновить',
-          onTap: () {
-            _showErrorDialog(context);
+        child: CupertinoButton(
+          onPressed: () {
+            Navigator.of(context).pushNamed('/vehical_add');
           },
+          color: primaryColor,
+          child: Text(
+            'Добавить',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
         ),
       ),
-    );
-  }
-
-  void _showErrorDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return const ErrorDialog(
-            desription: 'Сервер недоступен. Попробуйте обратиться позже');
-      },
     );
   }
 

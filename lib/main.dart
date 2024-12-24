@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:vehical_app/app.dart';
 import 'package:vehical_app/blocs/auth_bloc/auth_bloc.dart';
+import 'package:vehical_app/blocs/transport_add_bloc/transport_add_bloc.dart';
 import 'package:vehical_app/blocs/transport_bloc/transport_bloc.dart';
 import 'package:vehical_app/blocs/transport_on_change_state_bloc/transport_on_change_bloc.dart';
 
@@ -30,7 +31,10 @@ void main() async {
         ),
         BlocProvider(
           create: (context) => TransportOnChangeBloc(supabase),
-        )
+        ),
+        BlocProvider(
+          create: (context) => TransportAddBloc(supabase),
+        ),
       ],
       child: MainApp(),
     ),
