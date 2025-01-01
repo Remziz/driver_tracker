@@ -15,13 +15,15 @@ class TransportAddBloc extends Bloc<TransportAddEvent, TransportAddState> {
     on<OnAddTransportEvent>((event, emit) async {
       emit(TransportAdding());
       final modelName = event.modelName;
+      final driverName = event.driverName;
+      final status = event.status;
       final userId = supabase.auth.currentUser!.id;
       try {
         await supabase.from('vehicels').insert({
           'user_id': userId,
           'model': modelName,
-          'driver': '',
-          'status': 'Требует ремонта',
+          'driver': driverName,
+          'status': status,
         });
         emit(TransportAdded());
       } catch (e) {

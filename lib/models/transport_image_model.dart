@@ -13,7 +13,7 @@ class TransportImageModel {
   static List<TransportImageModel> transportImageList = [
     TransportImageModel(
       modelName: 'Мотоцикл',
-      imagePath: SvgPicture.asset('assets/svg/motorcycle.svg'),
+      imagePath: SvgPicture.asset('assets/svg/Motorcycle.svg'),
     ),
     TransportImageModel(
       modelName: 'Гольф-кар',
@@ -39,7 +39,7 @@ class TransportImageModel {
     TransportImageModel(
       modelName: 'Мотоцикл',
       imagePath: SvgPicture.asset(
-        'assets/svg/motorcycle.svg',
+        'assets/svg/Motorcycle.svg',
         height: 100,
         width: 60,
       ),

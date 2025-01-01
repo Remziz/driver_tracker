@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:vehical_app/auth_screens/login_screen.dart';
 import 'package:vehical_app/auth_screens/splash_screen.dart';
 import 'package:vehical_app/pages/vehical/vehical_page.dart';
+import 'package:vehical_app/pages/vehical_add/select_driver_screen.dart';
+import 'package:vehical_app/pages/vehical_add/select_state_screen.dart';
 import 'package:vehical_app/pages/vehical_add/vehical_add_screen.dart';
 
 class MainApp extends StatelessWidget {
@@ -26,6 +28,10 @@ class MainApp extends StatelessWidget {
             return CupertinoPageRoute(builder: (_) => LoginScreen());
           case '/vehical_add':
             return CupertinoPageRoute(builder: (_) => VehicalAddScreen());
+          case '/select_driver':
+            return CupertinoPageRoute(builder: (_) => SelectDriverScreen());
+          case '/select_state':
+            return CupertinoPageRoute(builder: (_) => SelectStateScreen());
           default:
             return null;
         }

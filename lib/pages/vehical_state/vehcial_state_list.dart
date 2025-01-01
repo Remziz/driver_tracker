@@ -1,11 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vehical_app/blocs/auth_bloc/auth_bloc.dart';
 import 'package:vehical_app/blocs/transport_bloc/transport_bloc.dart';
 import 'package:vehical_app/blocs/transport_on_change_state_bloc/transport_on_change_bloc.dart';
+import 'package:vehical_app/design/colors.dart';
 import 'package:vehical_app/design/demensions.dart';
 import 'package:vehical_app/design/utils/size_utils.dart';
-import 'package:vehical_app/design/widgets/accent_button.dart';
 import 'package:vehical_app/design/widgets/selectable_item.dart';
 import 'package:vehical_app/models/states_model.dart';
 
@@ -91,9 +92,15 @@ class VehicalStateList extends StatelessWidget {
         child: BlocBuilder<TransportOnChangeBloc, TransportOnChangeState>(
           builder: (context, state) {
             if (state is TransportChangedState) {
-              return AccentButton(
-                title: 'Сохранить',
-                onTap: () {
+              return CupertinoButton(
+                color: primaryColor,
+                child: Text(
+                  'Сохранить',
+                  style: TextStyle(
+                    color: backgroundColor,
+                  ),
+                ),
+                onPressed: () {
                   context
                       .read<TransportOnChangeBloc>()
                       .add(OnSaveButtonEvent(state.action, state.driver));

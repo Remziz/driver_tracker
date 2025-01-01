@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
@@ -6,7 +7,11 @@ import 'package:vehical_app/app.dart';
 import 'package:vehical_app/blocs/auth_bloc/auth_bloc.dart';
 import 'package:vehical_app/blocs/transport_add_bloc/transport_add_bloc.dart';
 import 'package:vehical_app/blocs/transport_bloc/transport_bloc.dart';
+import 'package:vehical_app/blocs/transport_driver/transport_driver_bloc.dart';
+import 'package:vehical_app/blocs/transport_on_change_driver/transport_on_change_driver_bloc.dart';
 import 'package:vehical_app/blocs/transport_on_change_state_bloc/transport_on_change_bloc.dart';
+import 'package:vehical_app/blocs/transport_on_set_driver/transport_on_set_driver_bloc.dart';
+import 'package:vehical_app/blocs/transport_on_set_state/transport_on_set_state_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,8 +40,20 @@ void main() async {
         BlocProvider(
           create: (context) => TransportAddBloc(supabase),
         ),
+        BlocProvider(
+          create: (context) => TransportDriverBloc(supabase),
+        ),
+        BlocProvider(
+          create: (context) => TransportOnSetDriverBloc(supabase),
+        ),
+        BlocProvider(
+          create: (context) => TransportOnSetStateBloc(supabase),
+        ),
+        BlocProvider(
+          create: (context) => TransportOnChangeDriverBloc(supabase),
+        ),
       ],
-      child: MainApp(),
+      child: DevicePreview(builder: (context) => MainApp()),
     ),
   );
 }

@@ -13,23 +13,23 @@ class StateModel {
   static List<StateModel> stateList = [
     StateModel(
       action: 'Требует ремонта',
-      imagePath: SvgPicture.asset('assets/svg/repair.svg'),
+      imagePath: SvgPicture.asset('assets/svg/Repair.svg'),
     ),
     StateModel(
       action: 'На парковке',
-      imagePath: SvgPicture.asset('assets/svg/parking.svg'),
+      imagePath: SvgPicture.asset('assets/svg/Parking.svg'),
     ),
     StateModel(
       action: 'Загрузка груза',
-      imagePath: SvgPicture.asset('assets/svg/load.svg'),
+      imagePath: SvgPicture.asset('assets/svg/Load.svg'),
     ),
     StateModel(
       action: 'Выгрузка груза',
-      imagePath: SvgPicture.asset('assets/svg/unload.svg'),
+      imagePath: SvgPicture.asset('assets/svg/Unload.svg'),
     ),
     StateModel(
       action: 'Доставлен',
-      imagePath: SvgPicture.asset('assets/svg/delivery.svg'),
+      imagePath: SvgPicture.asset('assets/svg/Delivery.svg'),
     ),
   ];
 

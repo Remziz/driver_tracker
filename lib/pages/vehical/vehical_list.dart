@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vehical_app/blocs/auth_bloc/auth_bloc.dart';
 import 'package:vehical_app/blocs/transport_bloc/transport_bloc.dart';
+import 'package:vehical_app/blocs/transport_driver/transport_driver_bloc.dart';
 import 'package:vehical_app/design/colors.dart';
 import 'package:vehical_app/design/demensions.dart';
 import 'package:vehical_app/design/utils/size_utils.dart';
@@ -52,7 +54,23 @@ class VehicalList extends StatelessWidget {
             final imageState = StateModel.getImageState(transport.status);
             return VehicalItem(
               onTap: () async {
-                await _showDriverPage(context);
+                final String userId =
+                    context.read<AuthBloc>().supabase.auth.currentUser!.id;
+                context
+                    .read<TransportDriverBloc>()
+                    .add(TransportDriverLoadEvent(userId));
+                await Navigator.push(
+                  context,
+                  CupertinoPageRoute(
+                    builder: (context) {
+                      return DriverPage(
+                        id: transport.id,
+                        status: transport.status,
+                        transportModel: transport.model,
+                      );
+                    },
+                  ),
+                );
               },
               onStateTap: () async {
                 await _showVehicalStatePage(context, transport.driver);
@@ -93,12 +111,6 @@ class VehicalList extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Future<void> _showDriverPage(BuildContext context) async {
-    await Navigator.push(context, CupertinoPageRoute(builder: (context) {
-      return const DriverPage();
-    }));
   }
 
   Future<void> _showVehicalStatePage(

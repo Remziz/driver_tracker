@@ -19,11 +19,15 @@ final class SelectedNewTransportEvent extends TransportAddEvent {
 
 final class OnAddTransportEvent extends TransportAddEvent {
   final String modelName;
+  final String driverName;
+  final String status;
 
   const OnAddTransportEvent(
     this.modelName,
+    this.driverName,
+    this.status,
   );
 
   @override
-  List<Object> get props => [modelName];
+  List<Object> get props => [modelName, driverName, status];
 }

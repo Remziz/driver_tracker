@@ -86,7 +86,7 @@ class VehicalItem extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               text: TextSpan(children: <TextSpan>[
                 const TextSpan(
-                  text: 'Driver: ',
+                  text: 'Водитель: ',
                   style: hintBodyListItemStyle,
                 ),
                 TextSpan(

@@ -5,9 +5,13 @@ import 'package:flutter_svg/svg.dart';
 import 'package:vehical_app/blocs/auth_bloc/auth_bloc.dart';
 import 'package:vehical_app/blocs/transport_add_bloc/transport_add_bloc.dart';
 import 'package:vehical_app/blocs/transport_bloc/transport_bloc.dart';
+import 'package:vehical_app/blocs/transport_on_set_driver/transport_on_set_driver_bloc.dart';
+import 'package:vehical_app/blocs/transport_on_set_state/transport_on_set_state_bloc.dart';
 import 'package:vehical_app/design/colors.dart';
 import 'package:vehical_app/design/styles.dart';
 import 'package:vehical_app/models/transport_image_model.dart';
+import 'package:vehical_app/pages/vehical_add/widgets/driver_select_widget.dart';
+import 'package:vehical_app/pages/vehical_add/widgets/state_select_widget.dart';
 
 class VehicalAddScreen extends StatelessWidget {
   const VehicalAddScreen({super.key});
@@ -92,6 +96,17 @@ class VehicalAddScreen extends StatelessWidget {
                       ),
                     ],
                   ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: DriverSelectWidget(),
+                      ),
+                      Expanded(
+                        child: StateSelectWidget(),
+                      ),
+                    ],
+                  ),
                   const SizedBox(height: 15),
                   BlocBuilder<TransportAddBloc, TransportAddState>(
                     builder: (context, state) {
@@ -110,9 +125,19 @@ class VehicalAddScreen extends StatelessWidget {
                           ),
                         ),
                         onPressed: () {
-                          context
-                              .read<TransportAddBloc>()
-                              .add(OnAddTransportEvent(modelName));
+                          final driverState =
+                              context.read<TransportOnSetDriverBloc>().state;
+                          final statusState =
+                              context.read<TransportOnSetStateBloc>().state;
+                          if (driverState is ChangedDriverState &&
+                              statusState is ChangedStateOnAdd) {
+                            final String driverName = driverState.name;
+                            final String status = statusState.status;
+                            context.read<TransportAddBloc>().add(
+                                  OnAddTransportEvent(
+                                      modelName, driverName, status),
+                                );
+                          }
                         },
                       );
                     },
