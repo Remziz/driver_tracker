@@ -7,9 +7,12 @@ class VehicalStatePage extends StatelessWidget {
   const VehicalStatePage({
     super.key,
     required this.driver,
+    required this.id,
+    required this.transportModel,
   });
-
+  final int id;
   final String driver;
+  final String transportModel;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +34,9 @@ class VehicalStatePage extends StatelessWidget {
       body: Container(
         color: backgroundColor,
         child: VehicalStateList(
+          id: id,
           driver: driver,
+          transportModel: transportModel,
         ),
       ),
     );

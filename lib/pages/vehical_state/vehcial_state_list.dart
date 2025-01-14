@@ -14,9 +14,13 @@ class VehicalStateList extends StatelessWidget {
   const VehicalStateList({
     super.key,
     required this.driver,
+    required this.id,
+    required this.transportModel,
   });
 
+  final int id;
   final String driver;
+  final String transportModel;
 
   @override
   Widget build(BuildContext context) {
@@ -70,9 +74,9 @@ class VehicalStateList extends StatelessWidget {
               title: status.action,
               isSelected: isSelected,
               onTap: () {
-                context
-                    .read<TransportOnChangeBloc>()
-                    .add(OnChangeStateEvent(index, status.action, driver));
+                context.read<TransportOnChangeBloc>().add(
+                      OnChangeStateEvent(index, status.action, driver),
+                    );
               },
             );
           },
@@ -101,9 +105,10 @@ class VehicalStateList extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  context
-                      .read<TransportOnChangeBloc>()
-                      .add(OnSaveButtonEvent(state.action, state.driver));
+                  context.read<TransportOnChangeBloc>().add(
+                        OnSaveButtonEvent(
+                            id, state.driver, transportModel, state.action),
+                      );
                 },
               );
             } else if (state is ChangingState) {

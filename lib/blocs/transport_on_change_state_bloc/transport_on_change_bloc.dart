@@ -17,15 +17,19 @@ class TransportOnChangeBloc
     });
     on<OnSaveButtonEvent>((event, emit) async {
       emit(ChangingState());
+      final int id = event.id;
       final String action = event.action;
       final String userId = supabase.auth.currentUser!.id;
       final String driver = event.driver;
+      final String model = event.transportModel;
       try {
         await supabase
             .from('vehicels')
             .update({'status': action})
+            .eq('id', id)
             .eq('user_id', userId)
-            .eq('driver', driver);
+            .eq('driver', driver)
+            .eq('model', model);
         emit(ChangedStateSuccessuful());
       } catch (e) {
         emit(ChangedStateFailure());

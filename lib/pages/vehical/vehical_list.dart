@@ -7,6 +7,7 @@ import 'package:vehical_app/blocs/transport_driver/transport_driver_bloc.dart';
 import 'package:vehical_app/design/colors.dart';
 import 'package:vehical_app/design/demensions.dart';
 import 'package:vehical_app/design/utils/size_utils.dart';
+import 'package:vehical_app/dialogs/edit_vehical_dialog.dart';
 import 'package:vehical_app/models/states_model.dart';
 import 'package:vehical_app/models/transport_image_model.dart';
 import 'package:vehical_app/pages/driver/driver_page.dart';
@@ -72,8 +73,20 @@ class VehicalList extends StatelessWidget {
                   ),
                 );
               },
+              onLongPress: () async {
+                await showDialog(
+                  context: context,
+                  builder: (context) => EditVehicalDialog(
+                    id: transport.id,
+                    status: transport.status,
+                    driver: transport.driver,
+                    transportModel: transport.model,
+                  ),
+                );
+              },
               onStateTap: () async {
-                await _showVehicalStatePage(context, transport.driver);
+                await _showVehicalStatePage(
+                    context, transport.id, transport.driver, transport.model);
               },
               model: transport.model,
               driver: transport.driver,
@@ -113,11 +126,13 @@ class VehicalList extends StatelessWidget {
     );
   }
 
-  Future<void> _showVehicalStatePage(
-      BuildContext context, String driver) async {
+  Future<void> _showVehicalStatePage(BuildContext context, int id,
+      String driver, String transportModel) async {
     await Navigator.push(context, CupertinoPageRoute(builder: (context) {
       return VehicalStatePage(
+        id: id,
         driver: driver,
+        transportModel: transportModel,
       );
     }));
   }

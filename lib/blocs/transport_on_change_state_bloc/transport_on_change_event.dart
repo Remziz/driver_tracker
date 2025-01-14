@@ -23,14 +23,18 @@ final class OnChangeStateEvent extends TransportOnChangeEvent {
 }
 
 final class OnSaveButtonEvent extends TransportOnChangeEvent {
-  final String action;
+  final int id;
   final String driver;
+  final String transportModel;
+  final String action;
 
   const OnSaveButtonEvent(
-    this.action,
+    this.id,
     this.driver,
+    this.transportModel,
+    this.action,
   );
 
   @override
-  List<Object> get props => [action, driver];
+  List<Object> get props => [id, driver, transportModel, action];
 }

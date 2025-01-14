@@ -16,10 +16,12 @@ class VehicalItem extends StatelessWidget {
     required this.status,
     required this.imageState,
     required this.imageTransport,
+    required this.onLongPress,
   });
 
   final Function() onTap;
   final Function() onStateTap;
+  final Function() onLongPress;
   final String model;
   final String driver;
   final String status;
@@ -42,6 +44,7 @@ class VehicalItem extends StatelessWidget {
             ),
             child: InkWell(
               borderRadius: BorderRadius.circular(radius8),
+              onLongPress: onLongPress,
               onTap: onTap,
               child: Padding(
                 padding: const EdgeInsets.only(

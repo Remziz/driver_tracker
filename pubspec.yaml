@@ -11,10 +11,10 @@ dependencies:
   equatable: ^2.0.7
   flutter:
     sdk: flutter
-  flutter_bloc: ^8.1.6
-  flutter_svg: ^2.0.16
+  flutter_bloc: ^9.0.0
+  flutter_svg: ^2.0.17
   provider: ^6.1.2
-  supabase_flutter: ^2.8.2
+  supabase_flutter: ^2.8.3
   
 
 dev_dependencies:

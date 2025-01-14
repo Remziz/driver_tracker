@@ -7,6 +7,7 @@ import 'package:vehical_app/app.dart';
 import 'package:vehical_app/blocs/auth_bloc/auth_bloc.dart';
 import 'package:vehical_app/blocs/transport_add_bloc/transport_add_bloc.dart';
 import 'package:vehical_app/blocs/transport_bloc/transport_bloc.dart';
+import 'package:vehical_app/blocs/transport_delete_bloc/transport_delete_bloc.dart';
 import 'package:vehical_app/blocs/transport_driver/transport_driver_bloc.dart';
 import 'package:vehical_app/blocs/transport_on_change_driver/transport_on_change_driver_bloc.dart';
 import 'package:vehical_app/blocs/transport_on_change_state_bloc/transport_on_change_bloc.dart';
@@ -51,6 +52,9 @@ void main() async {
         ),
         BlocProvider(
           create: (context) => TransportOnChangeDriverBloc(supabase),
+        ),
+        BlocProvider(
+          create: (context) => TransportDeleteBloc(supabase),
         ),
       ],
       child: DevicePreview(builder: (context) => MainApp()),
